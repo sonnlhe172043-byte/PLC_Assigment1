@@ -25,8 +25,7 @@ class MyLexer(Lexer):
     ### matching rule ###
     # The matching work from top to bottom
     # At least, all toekns must be defined here
-
-    # Ignore spaces and tabs 
+    # Ignore spaces and tabs
     ignore = ' \t'
 
     ### EX1: simply define with regEX ###
@@ -41,7 +40,6 @@ class MyLexer(Lexer):
         # Extra print for debug
         print(f"====This print from AND function: {token.type=} {token.value=}")
         return token
-
     OR = r'v'
 
     # Extra action for newlines

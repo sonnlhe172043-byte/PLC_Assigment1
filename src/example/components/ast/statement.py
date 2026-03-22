@@ -56,7 +56,7 @@ class Expression_logic(Expression):
         print(self)
 
     def preval(self) -> str:
-        #  semantic rule for prefix
+        #semantic rule for prefix
         op = "^" if self.operation == Operations.AND else "v"
 
         # E -> E1 v T   or   T -> T1 ^ F
@@ -80,8 +80,8 @@ class Expression_boolean(Expression):
         print(self)
 
     def preval(self) -> str:
-        # F -> t   hoặc   F -> f
-        # preval := t.lexval hoặc f.lexval
+        # F -> t   or   F -> f
+        # preval := t.lexval or f.lexval
         return "t" if self.value else "f"
 
     def __repr__(self):

@@ -64,8 +64,6 @@ class MyParser(Parser):
 
 
 # ---------------- AST VERSION ----------------
-
-
 class ASTParser(Parser):
     debuggable = 'parser.out'
     start = 'statement'
@@ -110,12 +108,8 @@ class ASTParser(Parser):
 
 
 if __name__ == "__main__":
-
     lexer = MyLexer()
     parser = ASTParser()
-
     text = "t ^ f v t"
-
     result = parser.parse(lexer.tokenize(text))
-
     print("Result:", result)
