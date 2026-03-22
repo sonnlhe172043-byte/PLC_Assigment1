@@ -7,7 +7,7 @@ from sly import Parser
 
 
 class MyParser(Parser):
-    debugfile = 'parser.out'
+    debuggable = 'parser.out'
     start = 'statement'
 
     # Get the token list from the lexer (required)
@@ -67,7 +67,7 @@ class MyParser(Parser):
 
 
 class ASTParser(Parser):
-    debugfile = 'parser.out'
+    debuggable = 'parser.out'
     start = 'statement'
 
     tokens = MyLexer.tokens
