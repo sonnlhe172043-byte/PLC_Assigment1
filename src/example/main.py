@@ -89,13 +89,13 @@ class MainWindow(QMainWindow):
 
         input_text = self.ui.input_text.text().strip()
 
-        # empty
+        # empty input
         if not input_text:
             self.ui.output_text.setText("Empty")
             self.ui.Prefix.setText("Prefix")
             return
 
-        # validation
+        # validation input
         if not is_valid_expression(input_text):
             self.ui.output_text.setText("Syntax Error")
             self.ui.Prefix.setText("Invalid Expression")
