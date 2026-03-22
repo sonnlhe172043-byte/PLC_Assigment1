@@ -79,7 +79,7 @@ class ASTParser(Parser):
 
     @_('expr')
     def statement(self, p):
-        return p.expr   # trả về root AST để sau này gọi .run() và .preval()
+        return p.expr   # return root AST -> .run() and .preval()
         
 
     # Các production giữ nguyên như cũ

@@ -5,7 +5,7 @@ import sys
 from PySide6.QtWidgets import QApplication, QMainWindow, QLineEdit, QPushButton, QLCDNumber, QLabel, QFileDialog
 
 from components.lexica import MyLexer
-from components.parsers import ASTParser  # giả sử đây là file chứa ASTParser
+from components.parsers import ASTParser
 from components.memory import Memory
 from components.ui_main import Ui_MainWindow
 from datetime import datetime
@@ -45,7 +45,7 @@ class MainWindow(QMainWindow):
 
     input_text: QLineEdit
     output_lcd: QLCDNumber
-    Prefix: QLabel  # thêm nếu bạn dùng type hint
+    Prefix: QLabel
 
     def __init__(self):
         super(MainWindow, self).__init__()
@@ -60,19 +60,17 @@ class MainWindow(QMainWindow):
 
         self.ui.button_equal.clicked.connect(self.push_equal)
 
-        # Kết nối button Delete mới
+        # Delete button
         self.ui.button_delete.clicked.connect(self.delete_last_char)
 
-        # Giá trị ban đầu cho Prefix (tùy chọn)
+        #
         self.ui.Prefix.setText("Prefix")
 
     def delete_last_char(self):
-        current_text = self.ui.input_text.text()
-        if current_text:
-            # Xóa ký tự cuối cùng
-            new_text = current_text[:-1]
-            self.ui.input_text.setText(new_text)
-            print(f"deleted last symbol, : {new_text}")
+        tokens = self.ui.input_text.text().split()
+        if tokens:
+            tokens.pop()
+            self.ui.input_text.setText(" ".join(tokens))
 
     def push(self, text: str):
         current_text = self.ui.input_text.text()
