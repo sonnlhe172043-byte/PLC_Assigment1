@@ -11,6 +11,8 @@ class Statement:
         return self.root_node.value
 
 
+
+
 class Operations(Enum):
     AND = 0 # SỬA LẠI
     OR = 1
