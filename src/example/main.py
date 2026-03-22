@@ -1,12 +1,8 @@
-
-from components.ui_main import Ui_MainWindow
-
 import sys
 from PySide6.QtWidgets import QApplication, QMainWindow, QLineEdit, QPushButton, QLCDNumber, QLabel, QFileDialog
 
 from components.lexica import MyLexer
 from components.parsers import ASTParser
-from components.memory import Memory
 from components.ui_main import Ui_MainWindow
 from datetime import datetime
 
