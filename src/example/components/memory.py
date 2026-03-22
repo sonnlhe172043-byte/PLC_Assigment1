@@ -57,5 +57,5 @@ if __name__ == "__main__":
 
     print(memory)
 
-    print(memory.get("b"))        # chỉ trả value
-    print(memory.get_data("b"))   # trả full info
+    print(memory.get("b"))        # just value
+    print(memory.get_data("b"))   # just info info

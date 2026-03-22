@@ -17,6 +17,23 @@ def write_log(input_text, result, prefix, level="INFO", filename="logAssignment1
     with open(filename, "a", encoding="utf-8") as f:
         f.write(log_line)
 
+
+def is_valid_expression(expr: str):
+    tokens = expr.split()
+
+    if len(tokens) % 2 == 0:
+        return False
+
+    for i in range(len(tokens)):
+        if i % 2 == 0:
+            if tokens[i] not in ['t', 'f']:
+                return False
+        else:
+            if tokens[i] not in ['^', 'v']:
+                return False
+
+    return True
+
 class MainWindow(QMainWindow):
 
     # Type hint (giữ nguyên nếu bạn có)
@@ -59,40 +76,48 @@ class MainWindow(QMainWindow):
 
     def push(self, text: str):
         current_text = self.ui.input_text.text()
-        self.ui.input_text.setText(current_text + text)
+
+        if current_text:
+            new_text = current_text + " " + text
+        else:
+            new_text = text
+
+        self.ui.input_text.setText(new_text)
 
     def push_equal(self):
         print("Calculate")
 
+        input_text = self.ui.input_text.text().strip()
 
-
-        input_text = self.ui.input_text.text().strip()  # ← biến input_text chỉ có ở đây
-
+        # empty
         if not input_text:
-            self.ui.output_lcd.display(0)
+            self.ui.output_text.setText("Empty")
             self.ui.Prefix.setText("Prefix")
+            return
+
+        # validation
+        if not is_valid_expression(input_text):
+            self.ui.output_text.setText("Syntax Error")
+            self.ui.Prefix.setText("Invalid Expression")
             return
 
         try:
             lexer = MyLexer()
             parser = ASTParser()
 
-            root = parser.parse(lexer.tokenize(input_text))  # ← dùng input_text ở đây
-            if lexer.index < len(lexer.text):
-                raise SyntaxError("Have to t/f first")
+            root = parser.parse(lexer.tokenize(input_text))
 
             if root is None:
                 raise ValueError("Re-input")
 
-            root.run()  # calculate value
+            root.run()
             result = root.value
 
-            self.ui.output_text.setText( "t" if result else "f")
+            self.ui.output_text.setText("t" if result else "f")
 
-            # prefix (n to_prefix / preval)
-            prefix_str = root.preval()  # h root.preval() flexible
+            prefix_str = root.preval()
             self.ui.Prefix.setText(prefix_str)
-            # ====== auto log ======
+
             write_log(input_text, result, prefix_str)
 
             print(f"Final Value: {result}")
@@ -100,9 +125,10 @@ class MainWindow(QMainWindow):
 
         except Exception as e:
             print(f"Error: {e}")
-            write_log(input_text, "Error", e)
-            self.ui.output_text.setText(0)
-            self.ui.Prefix.setText(f"Lỗi: {str(e)}")
+            write_log(input_text, "Error", str(e))
+
+            self.ui.output_text.setText("Error")
+            self.ui.Prefix.setText("Check input")
 
 
 
