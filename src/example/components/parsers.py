@@ -3,7 +3,7 @@ from django.db.models.sql import OR, AND
 from example.components.lexica import MyLexer
 from example.components.memory import Memory
 from example.components.ast.statement import Expression, Expression_logic, Expression_boolean, Operations
-from sly import Parser
+from sly import Parser #Please, ignore IDE warning
 
 
 class MyParser(Parser):
