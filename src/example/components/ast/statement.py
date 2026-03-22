@@ -1,85 +1,86 @@
 from enum import Enum
 from abc import ABC, abstractmethod
 
+
 class Statement:
-    """What is statement?
-    In this calculator project, a statement is each line of math expression.
-    In this case, it will consit of tree of math expression
-    """
-    def __init__(self) -> None:
-        root_node
-        
+    def __init__(self, root_node):
+        self.root_node = root_node
+
+    def run(self):
+        self.root_node.run()
+        return self.root_node.value
+
 
 class Operations(Enum):
-    PLUS:int=0
-    MINUS:int=1
-    TIMES:int=2
-    DIVIDE:int=3
+    AND = 0 # SỬA LẠI
+    OR = 1
 
-class Expression(ABC): 
+
+class Expression(ABC):
+    def __init__(self):
+        self.signature = ""
+        self.value = None
+
     @abstractmethod
-    def __init__(self) -> None:
-        self.signature:str = ""
-        self.value:int = None
+    def run(self):
         pass
 
     @abstractmethod
-    def run(self) -> None:
+    def preval(self) -> str:
+
         pass
 
-class Expression_math(Expression):
-    def __init__(self, operation:Operations, parameter1:Expression, parameter2:Expression):
-        # Init attribute
-        self.operation:Operations = operation
-        self.parameter1:Expression = parameter1
-        self.parameter2:Expression = parameter2
-        self.signature:str = ""
-        self.value:int = None
-        # Checking Logic
-        assert operation in Operations
 
-        # Create a children
-        self.children = [self.parameter1, self.parameter2]
-        
-    def run(self) -> None:
-        # evaluate child first
+class Expression_logic(Expression):
+    def __init__(self, operation: Operations, parameter1: Expression, parameter2: Expression):
+        super().__init__()
+        assert isinstance(operation, Operations)
+        self.operation = operation
+        self.parameter1 = parameter1
+        self.parameter2 = parameter2
+        self.children = [parameter1, parameter2]
+
+    def run(self):
+        # evaluate children first
         for child in self.children:
             child.run()
-            # print(child)
 
-        # print(f"Calculating: {self.operation.name=} {self.parameter1=} {self.parameter2=}")
-        if(self.operation == Operations.PLUS):
-            self.value = self.parameter1.value + self.parameter2.value
-        elif(self.operation == Operations.MINUS):
-            self.value = self.parameter1.value - self.parameter2.value
-        elif(self.operation == Operations.TIMES):
-            self.value = self.parameter1.value * self.parameter2.value
-        elif(self.operation == Operations.DIVIDE):
-            self.value = self.parameter1.value / self.parameter2.value
-        else:
-            raise ValueError(f"{self.operation=} is not support. Please use class Statement.Operations. Actually, this should not happen.")
-        
-        self.signature = f"Expression: {self.operation.name} {self.parameter1.value} {self.parameter2.value}"
+        if self.operation == Operations.AND:
+            self.value = self.parameter1.value and self.parameter2.value
+        elif self.operation == Operations.OR:
+            self.value = self.parameter1.value or self.parameter2.value
+
+        self.signature = f"{self.parameter1.value} {self.operation.name} {self.parameter2.value}"
         print(self)
 
-    def __repr__(self) -> str:
-        return self.signature
+    def preval(self) -> str:
+        #  semantic rule for prefix
+        op = "^" if self.operation == Operations.AND else "v"
 
-class Expression_number(Expression):
-    def __init__(self, number:int) -> None:
-        self.value:int = number
-        self.signature:str= str(number)
-        
-    def run(self) -> None:
+        # E -> E1 v T   or   T -> T1 ^ F
+        # preval := op + " " + left.preval + " " + right.preval
+        left_pre = self.parameter1.preval()
+        right_pre = self.parameter2.preval()
+
+        return f"{op} {left_pre} {right_pre}"
+
+    def __repr__(self):
+        return f"Expression_logic:{self.signature}"
+
+
+class Expression_boolean(Expression):
+    def __init__(self, value: bool):
+        super().__init__()
+        self.value = value
+        self.signature = str(value)
+
+    def run(self):
         print(self)
 
-    def __repr__(self) -> str:
-        return f"Expression_number:{self.signature}"
+    def preval(self) -> str:
+        # F -> t   hoặc   F -> f
+        # preval := t.lexval hoặc f.lexval
+        return "t" if self.value else "f"
 
-if __name__ == "__main__":
-    number1 = Expression_number(number=8)
-    number2 = Expression_number(number=9)
-    expr = Expression_math(Operations.MINUS, parameter1=number1, parameter2=number2)
-    expr.run()
-    # print(expr.hshow())
-    print(expr.value)
+    def __repr__(self):
+        return f"Expression_boolean:{self.value}"
