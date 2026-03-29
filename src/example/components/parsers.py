@@ -1,4 +1,4 @@
-from django.db.models.sql import OR, AND
+
 
 from example.components.lexica import MyLexer
 from example.components.memory import Memory
