@@ -32,7 +32,7 @@ def is_valid_expression(expr: str):
 
 class MainWindow(QMainWindow):
 
-
+    #Button List
     button_t: QPushButton
     button_f: QPushButton
     button_and: QPushButton
