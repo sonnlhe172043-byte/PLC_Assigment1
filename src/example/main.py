@@ -32,7 +32,7 @@ def is_valid_expression(expr: str):
 
 class MainWindow(QMainWindow):
 
-    # Type hint (giữ nguyên nếu bạn có)
+
     button_t: QPushButton
     button_f: QPushButton
     button_and: QPushButton
@@ -48,7 +48,7 @@ class MainWindow(QMainWindow):
         self.ui = Ui_MainWindow()
         self.ui.setupUi(self)
 
-        # Kết nối các button
+        # Connect button
         self.ui.button_t.clicked.connect(lambda: self.push("t"))
         self.ui.button_f.clicked.connect(lambda: self.push("f"))
         self.ui.button_and.clicked.connect(lambda: self.push("^"))
