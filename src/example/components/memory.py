@@ -13,6 +13,7 @@ def singleton(cls):
 class Memory:
 
     def __init__(self) -> None:
+        
         self.memory: dict = {}
 
     def get(self, variable_name: str):

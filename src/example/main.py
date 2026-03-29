@@ -1,6 +1,6 @@
 import sys
 from PySide6.QtWidgets import QApplication, QMainWindow, QLineEdit, QPushButton, QLCDNumber, QLabel, QFileDialog
-
+#Please, ignore IDE warning
 from components.lexica import MyLexer
 from components.parsers import ASTParser
 from components.ui_main import Ui_MainWindow

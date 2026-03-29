@@ -51,6 +51,7 @@ class MyLexer(Lexer):
     def error(self, t):
         self.index += 1
         print(f"ERROR: Illegal character '{t.value[0]}' at line {self.lineno}")
+        
 
 
 if __name__ == '__main__':

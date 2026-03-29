@@ -14,7 +14,7 @@ class Statement:
 
 
 class Operations(Enum):
-    AND = 0 # SỬA LẠI
+    AND = 0
     OR = 1
 
 
