@@ -4,14 +4,9 @@ from PySide6.QtWidgets import QApplication, QMainWindow, QLineEdit, QPushButton,
 from components.lexica import MyLexer
 from components.parsers import ASTParser
 from components.ui_main import Ui_MainWindow
-from datetime import datetime
 
 
-def write_log(input_text, result, prefix, level="INFO", filename="logAssignment1.log"):
-    timestamp = datetime.now().strftime("%Y-%m-%d %H:%M:%S")
-    log_line = f"[{timestamp}] {level} | Input: {input_text} | Result: {result} | Prefix: {prefix}\n"
-    with open(filename, "a", encoding="utf-8") as f:
-        f.write(log_line)
+
 
 
 def is_valid_expression(expr: str):
@@ -112,14 +107,14 @@ class MainWindow(QMainWindow):
             prefix_str = root.preval()
             self.ui.Prefix.setText(prefix_str)
 
-            write_log(input_text, result, prefix_str)
+
 
             print(f"Final Value: {result}")
             print(f"Prefix: {prefix_str}")
 
         except Exception as e:
             print(f"Error: {e}")
-            write_log(input_text, "Error", str(e))
+
 
             self.ui.output_text.setText("Error")
             self.ui.Prefix.setText("Check input")
