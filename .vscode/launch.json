@@ -12,8 +12,8 @@
             "program": "main.py",
             "cwd": "${workspaceFolder}/src/example/",
             "env": {
-            "PYTHONPATH": "${workspaceFolder}/src"
-        }
+                "PYTHONPATH": "${workspaceFolder}/src"
+            }
         },
         {
             "name": "[project] Python Debugger",
