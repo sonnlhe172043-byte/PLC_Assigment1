@@ -10,7 +10,10 @@
             "request": "launch",
             "python": "${workspaceFolder}/.venv/Scripts/python.exe",
             "program": "main.py",
-            "cwd": "${workspaceFolder}/src/example/"
+            "cwd": "${workspaceFolder}/src/example/",
+            "env": {
+            "PYTHONPATH": "${workspaceFolder}/src"
+        }
         },
         {
             "name": "[project] Python Debugger",
